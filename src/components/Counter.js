@@ -1,13 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux'
 import classes from './Counter.module.css';
-import { counterActions } from '../store/index';
+import { counterActions } from '../store';
 
 const Counter = () => {
 
   const dispatch = useDispatch()
   //getting data out of the store with useSelector  /  automatically set up a subscription
-  const counter = useSelector(state => state.counter)
-  const show = useSelector(state => state.showCounter);
+
+  // state.counter.counter <- first counter is to make react redux aware, second is just the prop on reducer - { counter: 0 } - could be any other thing.
+  const counter = useSelector(state => state.counter.counter);
+  const show = useSelector(state => state.counter.showCounter);
 
   const incrementHandler = () => {
     dispatch(counterActions.increment());

@@ -1,35 +1,52 @@
 
 import { createSlice, configureStore } from '@reduxjs/toolkit'
 
-const initialState = { counter: 0, showCounter: true }
-
+const initialCounterState = { counter: 0, showCounter: true }
 
 //we are creating a slice of our global state - potential, enters in diff files
 const counterSlice = createSlice({
   name: 'counter',
-  initialState: initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state) {
-      state.counter++
+      state.counter++;
     },
     decrement(state) {
-      state.counter--
+      state.counter--;
     },
     increase(state, action) {
-      state.counter = state.counter + action.payload
+      state.counter = state.counter + action.payload;
     },
     toggleCounter(state) {
-      state.showCounter = !state.showCounter
+      state.showCounter = !state.showCounter;
     }
   }
-})
-
-
-const store = configureStore({
-  reducer: counterSlice.reducer
 });
 
+const initialAuthState = {
+  isAuthenticated: false
+};
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true
+    },
+    logout(state) {
+      state.isAuthenticated = false
+    }
+  },
+});
+
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+});
+
+
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 export default store;
 
